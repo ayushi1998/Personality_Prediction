@@ -2,13 +2,13 @@ import csv
 import linecache
 
 
-def get_tweets_list(filename,number=-1):
+def get_tweets_list(filename):
     total_lines = 0
     with open(filename,'r') as f:
         for line in f:
             total_lines += 1
 
-    print(total_lines)
+    # print(total_lines)
 
     all_tweets = []
 

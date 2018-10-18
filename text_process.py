@@ -1,50 +1,39 @@
+import get_tweets
+
 import csv
 import re
 import nltk
 """from nltk.stem.porter import PorterStemmer
 stemmer = PorterStemmer()"""
 
-def read_file():
-    f = open('tweets.csv',encoding="utf-8")
-    reader = csv.reader(f)
-    next(reader) # skip header
-    data=[]
-    i=0;
-    for row in reader:
-        i=i+1;
-        data.append(row)
-        if(i==1):
-            break
-    return data
-
 def cleaning(data):
     from nltk.tokenize import word_tokenize
-    from nltk.corpus import stopwords 
+    from nltk.corpus import stopwords
     """ data is a list  """
     big_data =[];
     label_big_data = {};
     for i in range(1,16):
         # Remove none alphabetic characters.
-        
+
         data[0][i] = re.sub(r"http\S+", ' ', data[0][i])
 
         data[0][i] = data[0][i].replace("'","")
 
         data[0][i] = re.sub('[^A-Za-z]', ' ', data[0][i])
-    
+
         data[0][i]= data[0][i].lower()
         big_data.append(data[0][i])
-        
 
-        
+
+
 
     """Tokenization and removing stop words from one sentence of the list of strings"""
 
- 
+
     tokenized_data = word_tokenize(data[0][i])
     #nltk.download('stopwords')  #nltk.download('wordnet')
-    
-    
+
+
     for word in tokenized_data:
         if word in stopwords.words('english'):
             print(word)
@@ -66,7 +55,7 @@ def lemmatization(tweet):
     tokenized_data=tweet;
     print(tokenized_data)
     return tokenized_data
-    
+
 
 def main():
     data=[]
@@ -79,6 +68,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-   
-
+    tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
+    print(tweets)
+    # main()
