@@ -1,8 +1,11 @@
 import get_tweets
+import time
 
 import csv
 import re
 import nltk
+
+
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -37,8 +40,8 @@ def lemmatization(list_of_tokens):
     wordnet_lemmatizer = WordNetLemmatizer()
     lemmatized = []
 
-    for j in range(len(tweet)):
-        lemmatized.append(wordnet_lemmatizer.lemmatize(spell(list_of_tokens[j])))
+    for j in range(len(list_of_tokens)):
+        lemmatized.append(wordnet_lemmatizer.lemmatize(list_of_tokens[j]))
 
     return lemmatized
 
@@ -55,4 +58,8 @@ def text_process(tweets):
 if __name__ == "__main__":
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
     # print(tweets)
+    start = time.time()
     text_process(tweets)
+    end = time.time()
+
+    print(end-start)
