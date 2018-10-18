@@ -47,13 +47,15 @@ def lemmatization(list_of_tokens):
 
 
 def text_process(tweets):
+    final = []
     for person in tweets:
         all_tokenized = cleaning(person[1])
         all_lematized = []
         for list_of_tokens in all_tokenized:
             lemmatized = lemmatization(list_of_tokens)
             all_lematized.append(lemmatized)
-    return all_lematized
+        final.append([person[0],all_lematized])
+    return final
 
 if __name__ == "__main__":
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
