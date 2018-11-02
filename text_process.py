@@ -1,4 +1,5 @@
 import get_tweets
+import save_data
 import time
 
 import csv
@@ -61,7 +62,9 @@ if __name__ == "__main__":
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
     # print(tweets)
     start = time.time()
-    text_process(tweets)
+    save_data.save_data(text_process(tweets),"data.dat")
     end = time.time()
+
+    # print(save_data.load_data("data.dat"))
 
     print(end-start)

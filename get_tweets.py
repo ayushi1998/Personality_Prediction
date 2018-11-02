@@ -28,5 +28,5 @@ def get_tweets_list(filename):
 
 
 if __name__ == '__main__':
-    all_tweets = get_tweets_list('./mbti_1.csv')
+    all_tweets = get_tweets_list('../project/mbti_1.csv')
     print(all_tweets)
