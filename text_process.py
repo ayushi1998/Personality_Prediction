@@ -49,7 +49,11 @@ def lemmatization(list_of_tokens):
 
 def text_process(tweets):
     final = []
+    i = 0
     for person in tweets:
+        if i>2:
+            break
+        i+=1
         all_tokenized = cleaning(person[1])
         all_lematized = []
         for list_of_tokens in all_tokenized:

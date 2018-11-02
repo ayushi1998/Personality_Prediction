@@ -1,18 +1,15 @@
 import get_tweets
-import text_process
 from collections import OrderedDict
 import numpy as np
-
+from text_process import text_process
 
 def dataset():
 
-
-	print("hI")
-
 	tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
-	# print(tweets)
-
+	
 	arr_of_processed_tweets = text_process(tweets)
+
+	#arr_of_processed_tweets = [['INFG',[['happy','great','lazy','talkative','money'],['calling','favourite','official','famous'],['sweet','famous','modest','polite','crushabl']]]
 
 	print(arr_of_processed_tweets)
 
@@ -41,11 +38,18 @@ def dataset():
 			userWords.append(d)
 
 
-	bagOfWords = OrderedDict(sorted(bagOfWords.items(), key=lambda(k,v):(v,k)))
+	#bagOfWords = OrderedDict(sorted(bagOfWords.items(), key=lambda(k,v):(v,k)))
 
-	no_of_features = 1000
+	bagOfWords = sorted(bagOfWords.items(), key=lambda kv: kv[1] , reverse = True )
+	print(bagOfWords)
 
-	feature_labels = list(bagOfWords.keys())[0:no_of_features]
+	
+	no_of_features = 10
+
+	#feature_labels = list(bagOfWords.keys())[0:no_of_features]
+
+	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
+	print(feature_labels)
 
 	#Now we will make the X_test matrix contating frequency of feature label words
 
@@ -61,3 +65,9 @@ def dataset():
 		i = i +1
 
 	return X_test, y_labels
+	
+
+
+if __name__ == '__main__':
+
+	print(dataset())
