@@ -23,13 +23,13 @@ def cleaning(list_of_tweets):
         """Tokenization and removing stop words from one sentence
         of the list of strings"""
         tokenized_data = word_tokenize(lower_case)
-
+        without_stop_words = []
         for word in tokenized_data:
-            if word in stopwords.words('english'):
+            if word not in stopwords.words('english'):
                 # print(word)
-                tokenized_data.remove(word)
+                without_stop_words.append(word)
 
-        all_tokenized.append(tokenized_data)
+        all_tokenized.append(without_stop_words)
 
     return all_tokenized
 
@@ -51,7 +51,7 @@ def text_process(tweets):
     final = []
     i = 0
     for person in tweets:
-        if i>2:
+        if i>1:
             break
         i+=1
         all_tokenized = cleaning(person[1])
