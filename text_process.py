@@ -8,6 +8,7 @@ import nltk
 
 import numpy as np
 
+from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -42,20 +43,18 @@ def lemmatization(list_of_tokens):
     """Spell will autocorrect the sms language word to dictionary word"""
     wordnet_lemmatizer = WordNetLemmatizer()
     lemmatized = []
-
-    for j in range(len(list_of_tokens)):
-        lemmatized.append(wordnet_lemmatizer.lemmatize(list_of_tokens[j]))
+    tag_dict = {'ADJ': 'a', 'ADJ_SAT':'s', 'ADV':'r', 'NOUN':'n', 'VERB':'v','DET':'n','NUM':'n','PRON':'n','X':'n','.':'n','CONJ':'n','ADP':'s','PRT':'n'}
+    with_pos_tags = pos_tag(list_of_tokens,tagset='universal')
+    for j in range(len(with_pos_tags)):
+        lemmatized_word = wordnet_lemmatizer.lemmatize(with_pos_tags[j][0],tag_dict[with_pos_tags[j][1]])
+        lemmatized.append(lemmatized_word)
 
     return lemmatized
 
 
 def text_process(tweets):
     final = []
-    i = 2
     for person in tweets:
-        if i==0:
-            break
-        i-=1
         all_tokenized = cleaning(person[1])
         all_lematized = []
         for list_of_tokens in all_tokenized:
@@ -65,14 +64,13 @@ def text_process(tweets):
     return final
 
 if __name__ == "__main__":
+    start = time.time()
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
     # print(tweets)
-    start = time.time()
     data = text_process(tweets)
-    print(data)
-    # save_data.save_data(data,"data.dat")
+    save_data.save_data(data,"data.dat")
     end = time.time()
+    print(end - start)
+    # print(data)
 
     # print(save_data.load_data("data.dat"))
-
-    print(end-start)
