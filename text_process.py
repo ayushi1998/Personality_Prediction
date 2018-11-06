@@ -1,11 +1,12 @@
 import get_tweets
 import save_data
-import time
 
+import time
 import csv
 import re
 import nltk
 
+import numpy as np
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -28,7 +29,8 @@ def cleaning(list_of_tweets):
             if word not in stopwords.words('english'):
                 # print(word)
                 without_stop_words.append(word)
-
+        if not without_stop_words:
+            continue
         all_tokenized.append(without_stop_words)
 
     return all_tokenized
@@ -49,11 +51,11 @@ def lemmatization(list_of_tokens):
 
 def text_process(tweets):
     final = []
-    i = 0
+    i = 2
     for person in tweets:
-        if i>2:
+        if i==0:
             break
-        i+=1
+        i-=1
         all_tokenized = cleaning(person[1])
         all_lematized = []
         for list_of_tokens in all_tokenized:
@@ -68,7 +70,7 @@ if __name__ == "__main__":
     start = time.time()
     data = text_process(tweets)
     print(data)
-    save_data.save_data(data,"data.dat")
+    # save_data.save_data(data,"data.dat")
     end = time.time()
 
     # print(save_data.load_data("data.dat"))
