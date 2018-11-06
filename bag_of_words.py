@@ -3,12 +3,17 @@ import numpy as np
 
 from save_data import load_data
 
-def dataset():
-	arr_of_processed_tweets = load_data('data.dat')
-	y_labels = [l[0] for l in arr_of_processed_tweets] #One row with all the labels
-	# y_labels = np.reshape( y_labels , ( len(y_labels), ) )
+def get_bag_of_words(filename):
+	arr_of_processed_tweets = load_data(filename)
 
-	#now creating bag of words and calculating frequeny
+	"""
+	y_labels: all labels extracted
+	"""
+	y_labels = [l[0] for l in arr_of_processed_tweets]
+
+	"""
+	now creating bag of words and calculating frequeny
+	"""
 	bagOfWords = {} #global dictionary containing frequency for all users
 	userWords = [] #list of dictionary containing frequency for one user
 	for l in arr_of_processed_tweets:
@@ -26,8 +31,9 @@ def dataset():
 	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
 	# print(feature_labels)
 
-	#Now we will make the X_test matrix contating frequency of feature label words
-
+	"""
+	X_test : contains frequency of feature label words
+	"""
 	X_test = np.zeros(shape = (len(userWords), no_of_features))
 
 	i = 0
@@ -40,5 +46,5 @@ def dataset():
 
 if __name__ == '__main__':
 
-	X,y = dataset()
+	X,y = get_bag_of_words('data.dat')
 	print(X)
