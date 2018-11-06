@@ -1,11 +1,10 @@
-import get_tweets
 from collections import OrderedDict
 import numpy as np
-from text_process import text_process
+
+from save_data import load_data
 
 def dataset():
-	tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
-	arr_of_processed_tweets = text_process(tweets)
+	arr_of_processed_tweets = load_data('data.dat')
 	y_labels = [l[0] for l in arr_of_processed_tweets] #One row with all the labels
 	# y_labels = np.reshape( y_labels , ( len(y_labels), ) )
 
@@ -23,9 +22,9 @@ def dataset():
 	bagOfWords = sorted(bagOfWords.items(), key=lambda kv: kv[1] , reverse = True )
 	# print(bagOfWords)
 
-	no_of_features = 5
+	no_of_features = 10
 	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
-	print(feature_labels)
+	# print(feature_labels)
 
 	#Now we will make the X_test matrix contating frequency of feature label words
 
@@ -41,4 +40,5 @@ def dataset():
 
 if __name__ == '__main__':
 
-	print(dataset())
+	X,y = dataset()
+	print(X)
