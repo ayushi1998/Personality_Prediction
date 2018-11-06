@@ -51,7 +51,7 @@ def text_process(tweets):
     final = []
     i = 0
     for person in tweets:
-        if i>1:
+        if i>2:
             break
         i+=1
         all_tokenized = cleaning(person[1])
@@ -66,7 +66,9 @@ if __name__ == "__main__":
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
     # print(tweets)
     start = time.time()
-    save_data.save_data(text_process(tweets),"data.dat")
+    data = text_process(tweets)
+    print(data)
+    save_data.save_data(data,"data.dat")
     end = time.time()
 
     # print(save_data.load_data("data.dat"))
