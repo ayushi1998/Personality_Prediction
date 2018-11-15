@@ -4,6 +4,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+
 def split():
     X , y = get_bag_of_words('data.dat')
     X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2)
@@ -27,13 +30,23 @@ def trainLR():
 
 def trainSVM():
     X_train, X_test, y_train, y_test  = split()
-    clf = SVC()
+    clf = SVC(gamma=0.001, C=1)
     clf.fit(X_train, y_train)
     print(clf.score(X_test, y_test))
  
 
     return clf
 
+
+
+
+
+def trainKNN():
+    X_train, X_test, y_train, y_test  = split()
+    knn = KNeighborsClassifier(n_neighbors=1000)
+    knn.fit(X_train, y_train)
+    print(knn.score(X_test, y_test))
+    
 
 def RandomForest():
     X_train, X_test, y_train, y_test  = split()
@@ -52,4 +65,4 @@ def RandomForest():
     
 if __name__ == '__main__':
 
-	(RandomForest())
+	trainKNN()
