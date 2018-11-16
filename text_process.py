@@ -5,6 +5,7 @@ import time
 import csv
 import re
 import nltk
+import os
 
 import numpy as np
 
@@ -54,19 +55,29 @@ def lemmatization(list_of_tokens):
 
 def text_process(tweets):
     final = []
+    temp_file_number = 1
     for person in tweets:
+        filename = "../data/%d.dat" % temp_file_number
+        if os.path.exists(filename):
+            continue
         all_tokenized = cleaning(person[1])
         all_lematized = []
         for list_of_tokens in all_tokenized:
             lemmatized = lemmatization(list_of_tokens)
             all_lematized.append(lemmatized)
-        final.append([person[0],all_lematized])
+        to_append = [person[0],all_lematized]
+        final.append(to_append)
+        save_data.save_data(to_append, filename)
+        temp_file_number+=1
+
     return final
 
 if __name__ == "__main__":
     start = time.time()
     tweets = get_tweets.get_tweets_list('../project/mbti_1.csv')
+    size = len(tweets)
     # print(tweets)
+
     data = text_process(tweets)
     save_data.save_data(data,"data.dat")
     end = time.time()

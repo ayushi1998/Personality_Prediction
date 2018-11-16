@@ -5,6 +5,10 @@ from save_data import load_data
 
 def get_bag_of_words(filename):
 	arr_of_processed_tweets = load_data(filename)
+	# arr_of_processed_tweets = []
+	# for i in range(1,8000):
+	# 	filename = "../data/%d.dat" % i
+	# 	arr_of_processed_tweets.append(load_data(filename))
 
 	"""
 	y_labels: all labels extracted
@@ -27,7 +31,7 @@ def get_bag_of_words(filename):
 	bagOfWords = sorted(bagOfWords.items(), key=lambda kv: kv[1] , reverse = True )
 	# print(bagOfWords)
 
-	no_of_features = 10
+	no_of_features = 1000
 	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
 	# print(feature_labels)
 

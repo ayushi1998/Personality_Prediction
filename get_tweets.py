@@ -8,7 +8,7 @@ def get_tweets_list(filename):
         for line in f:
             total_lines += 1
 
-    # print(total_lines)
+    print(total_lines)
 
     all_tweets = []
 
@@ -29,4 +29,4 @@ def get_tweets_list(filename):
 
 if __name__ == '__main__':
     all_tweets = get_tweets_list('../project/mbti_1.csv')
-    print(all_tweets)
+    # print(all_tweets)
