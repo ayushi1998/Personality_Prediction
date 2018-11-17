@@ -8,7 +8,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 from xgboost import plot_importance
 from matplotlib import pyplot
-
+from save_data import load_data
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
 
 def split(X, y):
 
@@ -18,13 +20,25 @@ def split(X, y):
 
 def LR(X_train, X_test, y_train, y_test):
 
-    lr = LogisticRegression(solver='lbfgs')
+    lr = LogisticRegression(solver='lbfgs', penalty = 'l2',  C = 2)
     lr.fit(X_train, y_train)
     y_pred_class = lr.predict(X_test)
     #y_pred_prob = lr.predict_proba(X_test)[:, 1]
     print(lr.score(X_test, y_test))
 
     return lr
+
+def NBG(X_train, X_test, y_train, y_test):
+    clf = GaussianNB()
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    print(clf.score(X_test, y_test))
+
+def NBM(X_train, X_test, y_train, y_test):
+    clf = MultinomialNB()
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    print(clf.score(X_test, y_test))
 
 
 def SVM(X_train, X_test, y_train, y_test):
@@ -57,7 +71,13 @@ def RandomForest(X_train, X_test, y_train, y_test):
     
 if __name__ == '__main__':
 
+    """ Feature 1 - Bag of words """
     X, y = get_bag_of_words('data.dat') #Get processed data and labels from data folder
+
+    """ Feature2 - Bag of words [20] + Sentiment + Words Per comment + Variance of words per comment """
+    #X = load_data('featur2_data.dat')
+
+    #X = np.append(X, , axis=1)
 
     y_EI = [l[0] for l in y] #for training for E vs I - stroes 1 bit label
     y_NS = [l[1] for l in y] #for training for N vs S - stroes 1 bit label
@@ -80,6 +100,6 @@ if __name__ == '__main__':
     for i in range(5):    
         X_train, X_test, y_train, y_test = split(X, y_category[i])
         print(y_category_names[i])
-        RandomForest(X_train, X_test, y_train, y_test)
+        LR(X_train, X_test, y_train, y_test)
         
         

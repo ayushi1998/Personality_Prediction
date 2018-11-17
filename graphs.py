@@ -1,4 +1,5 @@
 from save_data import load_data
+from save_data import save_data
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -42,7 +43,10 @@ X_wpc = np.reshape(X_wpc, ((8674,-1)))
 
 X = np.append(X_bow, X_avg_senti , axis=1)
 X = np.append(X, X_wpc, axis = 1)
-print(y)
+#print(y)
+
+print(X_bow)
+save_data(X,'featur2_data.dat')
 
 model = XGBClassifier()
 model.fit(X, y)
