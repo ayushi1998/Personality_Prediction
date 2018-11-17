@@ -36,6 +36,7 @@ def get_bag_of_words(filename):
 	no_of_features = 1000
 	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
 
+	
 	"""
 	X_test : contains frequency of feature label words
 	"""

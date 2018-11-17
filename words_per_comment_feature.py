@@ -1,6 +1,7 @@
 import get_tweets
 import time
 import numpy as np
+from save_data import save_data
 
 def get_words_per_comment(tweets):
 
@@ -59,6 +60,7 @@ def get_per_comment_features(tweets):
         feature.append(words_per_comment)
         feature.append(variance_of_words_per_comment)
 
+    save_data(np.reshape(feature,((-1,2))), 'words_per_comment.data')
     return np.reshape(feature,((-1,2))),np.array(labels)
 
 
