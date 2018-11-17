@@ -1,6 +1,8 @@
 from collections import OrderedDict
 import numpy as np
-
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from save_data import load_data
 
 def get_bag_of_words(filename):
@@ -33,7 +35,6 @@ def get_bag_of_words(filename):
 
 	no_of_features = 1000
 	feature_labels = [ bagOfWords[i][0] for i in range(0,no_of_features)]
-	# print(feature_labels)
 
 	"""
 	X_test : contains frequency of feature label words

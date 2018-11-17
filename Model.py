@@ -5,6 +5,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+from xgboost import XGBClassifier
+from xgboost import plot_importance
+from matplotlib import pyplot
 
 
 def split(X, y):
@@ -47,10 +50,7 @@ def RandomForest(X_train, X_test, y_train, y_test):
 
     Y_prediction = random_forest.predict(X_test)
 
-    random_forest.score(X_train, y_train)
-    acc_random_forest = round(random_forest.score(X_train, y_train) * 100, 2)
-    print(round(acc_random_forest,2,), "%")
-
+    print(random_forest.score(X_test, y_test))
 
 
     
@@ -67,8 +67,20 @@ if __name__ == '__main__':
     y_category = [y_EI, y_NS, y_FT, y_JP, y]
     y_category_names = ['EvsI', 'NvsS', 'FvsT', 'JvsP', 'Overall']
 
+    #XGbooster classifier for data correlation
+    '''
+    model = XGBClassifier()
+    model.fit(X[:,:20], y)
+    ax = plot_importance(model)
+    fig = ax.figure
+    fig.set_size_inches(100,100)
+    pyplot.show()
+    '''
+
     for i in range(5):    
-        X_train, X_test, y_train, y_test = split(X, y_category[i])
-        print(y_category_names[i])
-        RandomForest(X_train, X_test, y_train, y_test)
+        if i == 4:
+            X_train, X_test, y_train, y_test = split(X, y_category[i])
+            print(y_category_names[i])
+            SVM(X_train, X_test, y_train, y_test)
+        
         
