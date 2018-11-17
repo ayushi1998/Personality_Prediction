@@ -68,7 +68,8 @@ if __name__ == '__main__':
     y_category_names = ['EvsI', 'NvsS', 'FvsT', 'JvsP', 'Overall']
 
     for i in range(5):
-        X_train, X_test, y_train, y_test = split(X, y_category[i])
-        print(y_category_names[i])
-        SVM(X_train, X_test, y_train, y_test)
+        if i == 4:
+            X_train, X_test, y_train, y_test = split(X, y_category[i])
+            print(y_category_names[i])
+            SVM(X_train, X_test, y_train, y_test)
         
