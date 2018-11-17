@@ -20,7 +20,7 @@ def get_sentiment(tweets):
 
 
 
-    return np.array(feature),np.array(labels)
+    return feature,labels
 
 
 
